@@ -64,8 +64,12 @@ def edit_start_coord(start_coordinate, mask):
     return (max(np.where(mask[:,col_id] == 1)[0]), col_id)
 
 
-for sample in tqdm.tqdm(range(10)):
-    image, rover_mask, range_mask, label, raw_label, image_id = dataset[sample]
+for sample in tqdm.tqdm(range(N_IMAGES)):
+    try:
+        image, rover_mask, range_mask, label, raw_label, image_id = dataset[sample]
+    except:
+        print("image {} has no labels...".format(dataset.image_ids[sample]))
+        continue
 
     grid_image = GridImage(
         image, 
